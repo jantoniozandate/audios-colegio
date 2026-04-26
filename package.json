@@ -1,0 +1,20 @@
+{
+  "name": "notas-de-voz-qr",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.901.0",
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "next": "^15.3.1",
+    "qrcode": "^1.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}

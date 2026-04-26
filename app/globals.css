@@ -1,0 +1,679 @@
+:root {
+  --paper: oklch(0.97 0.02 89);
+  --paper-strong: oklch(0.94 0.04 83);
+  --ink: oklch(0.29 0.05 272);
+  --ink-soft: oklch(0.48 0.04 270);
+  --peach: oklch(0.84 0.1 52);
+  --mint: oklch(0.9 0.09 157);
+  --gold: oklch(0.85 0.12 92);
+  --berry: oklch(0.69 0.12 14);
+  --line: oklch(0.86 0.03 80);
+  --shadow: 0 22px 70px color-mix(in oklab, var(--ink) 15%, transparent);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --radius-lg: 28px;
+  --radius-md: 20px;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top, color-mix(in oklab, var(--gold) 18%, transparent), transparent 32%),
+    radial-gradient(circle at 80% 20%, color-mix(in oklab, var(--mint) 30%, transparent), transparent 28%),
+    linear-gradient(180deg, var(--paper), color-mix(in oklab, var(--paper) 82%, white));
+  font-family: var(--font-body), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.page-shell {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.floating-nav,
+.admin-topbar {
+  width: min(1200px, calc(100% - 24px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.floating-nav {
+  position: sticky;
+  top: 18px;
+  z-index: 30;
+  padding: 14px 18px;
+  border: 1px solid color-mix(in oklab, var(--line) 80%, white);
+  border-radius: 999px;
+  backdrop-filter: blur(22px);
+  background: color-mix(in oklab, white 68%, var(--paper));
+  box-shadow: 0 14px 44px color-mix(in oklab, var(--ink) 10%, transparent);
+}
+
+.brand-mark,
+.eyebrow,
+.section-kicker,
+.mini-label {
+  font-family: var(--font-display), cursive;
+  letter-spacing: 0.03em;
+}
+
+.brand-mark {
+  font-size: 1.1rem;
+}
+
+.nav-actions,
+.hero-actions,
+.note-actions,
+.listener-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.nav-link,
+.secondary-pill,
+.primary-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 999px;
+  transition:
+    transform 220ms var(--ease-out-quart),
+    background-color 220ms var(--ease-out-quart),
+    box-shadow 220ms var(--ease-out-quart);
+}
+
+.nav-link,
+.secondary-pill {
+  color: var(--ink);
+  background: color-mix(in oklab, white 65%, var(--paper-strong));
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--line) 75%, white);
+}
+
+.primary-pill {
+  color: oklch(0.98 0.01 85);
+  background: linear-gradient(135deg, oklch(0.43 0.08 278), oklch(0.57 0.08 329));
+  box-shadow: 0 16px 30px color-mix(in oklab, var(--berry) 24%, transparent);
+}
+
+.nav-link:hover,
+.secondary-pill:hover,
+.primary-pill:hover,
+.recorder-button:hover,
+.note-card:hover,
+.bento-card:hover,
+.auth-card:hover,
+.listener-card:hover,
+.cta-panel:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.hero-section,
+.section-block,
+.auth-shell,
+.listener-shell {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+}
+
+.hero-section {
+  padding: clamp(72px, 10vw, 148px) 0 clamp(70px, 9vw, 120px);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.hero-title,
+.section-copy h2,
+.story-sticky h2,
+.cta-panel h2,
+.auth-copy h1,
+.admin-topbar h1,
+.listener-card h1 {
+  margin: 0;
+  font-family: var(--font-display), cursive;
+  line-height: 0.94;
+}
+
+.hero-title {
+  max-width: 18ch;
+  font-size: clamp(3.4rem, 7vw, 6.1rem);
+}
+
+.hero-copy {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.eyebrow,
+.section-kicker,
+.mini-label {
+  font-size: 0.95rem;
+  text-transform: lowercase;
+  color: var(--berry);
+}
+
+.hero-body,
+.section-copy,
+.story-text,
+.cta-panel p,
+.auth-copy p,
+.listener-card p {
+  max-width: 64ch;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.proof-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.proof-list li {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.proof-list li::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--gold), var(--berry));
+}
+
+.hero-poster {
+  position: relative;
+  min-height: 540px;
+  border-radius: 40px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--mint) 65%, white), transparent 32%),
+    radial-gradient(circle at 80% 30%, color-mix(in oklab, var(--peach) 72%, white), transparent 34%),
+    linear-gradient(180deg, oklch(0.95 0.05 84), oklch(0.9 0.06 63));
+  box-shadow: var(--shadow);
+}
+
+.poster-card,
+.poster-bubble {
+  position: absolute;
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.poster-card {
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+  background: color-mix(in oklab, white 88%, var(--paper));
+}
+
+.poster-card span {
+  color: var(--ink-soft);
+}
+
+.poster-card strong {
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  line-height: 1.05;
+}
+
+.poster-card-main {
+  top: 50px;
+  left: 42px;
+  width: min(320px, calc(100% - 84px));
+  min-height: 190px;
+}
+
+.poster-card-soft {
+  right: 34px;
+  bottom: 34px;
+  width: 230px;
+  background: color-mix(in oklab, var(--mint) 42%, white);
+}
+
+.poster-bubble {
+  left: 52px;
+  bottom: 50px;
+  display: flex;
+  gap: 12px;
+  padding: 18px;
+  background: color-mix(in oklab, var(--paper) 92%, white);
+}
+
+.poster-bubble span {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--berry), var(--gold));
+  animation: bob 1.8s infinite alternate;
+}
+
+.poster-bubble span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.poster-bubble span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.section-block {
+  padding: clamp(90px, 12vw, 180px) 0;
+}
+
+.section-copy {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+
+.section-copy h2,
+.story-sticky h2,
+.cta-panel h2,
+.auth-copy h1,
+.admin-topbar h1,
+.listener-card h1 {
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+  max-width: 13ch;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(140px, auto);
+  grid-auto-flow: dense;
+  gap: var(--space-5);
+}
+
+.bento-card,
+.auth-card,
+.admin-card,
+.note-card,
+.listener-card,
+.cta-panel {
+  border-radius: 32px;
+  background: color-mix(in oklab, white 88%, var(--paper));
+  box-shadow: var(--shadow);
+  transition:
+    transform 300ms var(--ease-out-quart),
+    box-shadow 300ms var(--ease-out-quart);
+}
+
+.bento-card {
+  padding: var(--space-6);
+  display: grid;
+  gap: var(--space-4);
+  align-content: end;
+  min-height: 220px;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, white 92%, var(--paper)), color-mix(in oklab, var(--paper) 86%, var(--mint)));
+}
+
+.bento-card h3 {
+  margin: 0;
+  font-family: var(--font-display), cursive;
+  font-size: 2rem;
+}
+
+.bento-card p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.bento-wide {
+  grid-column: span 7;
+}
+
+.bento-tall {
+  grid-column: span 5;
+  grid-row: span 2;
+}
+
+.bento-square {
+  grid-column: span 5;
+}
+
+.story-layout {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: var(--space-8);
+}
+
+.story-sticky {
+  position: sticky;
+  top: 110px;
+  align-self: start;
+}
+
+.story-text {
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+  line-height: 1.42;
+}
+
+.story-text span {
+  opacity: 0.14;
+}
+
+.cta-panel,
+.auth-card,
+.listener-card {
+  padding: clamp(28px, 5vw, 56px);
+}
+
+.cta-panel {
+  display: grid;
+  gap: var(--space-5);
+  background:
+    radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--gold) 40%, white), transparent 25%),
+    linear-gradient(140deg, color-mix(in oklab, white 88%, var(--paper)), color-mix(in oklab, var(--peach) 32%, white));
+}
+
+.auth-shell,
+.listener-shell {
+  display: grid;
+  place-items: center;
+  padding-top: 8vh;
+}
+
+.auth-card,
+.listener-card {
+  width: min(640px, 100%);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.auth-copy {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.field span {
+  color: var(--ink);
+}
+
+.field input {
+  min-height: 56px;
+  padding: 0 18px;
+  border: 1px solid color-mix(in oklab, var(--line) 80%, white);
+  border-radius: 18px;
+  background: color-mix(in oklab, white 92%, var(--paper));
+  color: var(--ink);
+  transition:
+    border-color 200ms var(--ease-out-quart),
+    box-shadow 200ms var(--ease-out-quart),
+    transform 200ms var(--ease-out-quart);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: color-mix(in oklab, var(--berry) 40%, var(--gold));
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--gold) 28%, transparent);
+  transform: scale(1.01);
+}
+
+.form-error,
+.status-line,
+.hint-text {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.primary-button {
+  min-width: 180px;
+}
+
+.admin-shell {
+  padding-bottom: var(--space-9);
+}
+
+.admin-topbar {
+  padding: 34px 0 24px;
+}
+
+.admin-grid {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.admin-card {
+  padding: var(--space-6);
+}
+
+.card-head {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.card-head h2,
+.note-card h3 {
+  margin: 0;
+  font-family: var(--font-display), cursive;
+  font-size: 2rem;
+}
+
+.card-head p,
+.note-card p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.notes-stack {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.note-card {
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.note-meta,
+.note-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.compact-field {
+  flex: 1;
+}
+
+.recorder-shell {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.recorder-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 20px;
+  border-radius: 20px;
+  color: var(--ink);
+  background: color-mix(in oklab, var(--peach) 28%, white);
+  transition:
+    transform 220ms var(--ease-out-quart),
+    background-color 220ms var(--ease-out-quart);
+}
+
+.recorder-button.is-live {
+  background: color-mix(in oklab, var(--berry) 20%, white);
+}
+
+.recorder-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--berry);
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--berry) 28%, transparent);
+  animation: pulse 1.4s infinite;
+}
+
+.audio-preview {
+  width: 100%;
+}
+
+.qr-box {
+  width: 150px;
+  display: grid;
+  gap: var(--space-2);
+  justify-items: center;
+  text-align: center;
+}
+
+.listener-card {
+  text-align: left;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--berry) 28%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 16px transparent;
+  }
+}
+
+@keyframes bob {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-section,
+  .story-layout,
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-poster {
+    min-height: 420px;
+  }
+
+  .story-sticky {
+    position: static;
+  }
+
+  .bento-wide,
+  .bento-tall,
+  .bento-square {
+    grid-column: span 12;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    padding: 16px;
+  }
+
+  .floating-nav,
+  .admin-topbar,
+  .note-meta,
+  .note-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-title {
+    max-width: 10ch;
+  }
+
+  .hero-poster {
+    min-height: 360px;
+  }
+
+  .poster-card-main {
+    left: 20px;
+    right: 20px;
+    width: auto;
+  }
+
+  .poster-card-soft,
+  .poster-bubble {
+    left: 20px;
+    right: auto;
+    bottom: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
