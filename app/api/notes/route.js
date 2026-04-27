@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { readNotes, upsertNote } from "@/lib/data";
 import { requireAuth } from "@/lib/auth";
 import { uploadAudio } from "@/lib/r2";
+import { normalizeAudioUpload } from "@/lib/audio";
 
 export async function GET() {
   await requireAuth();
@@ -27,11 +28,13 @@ export async function POST(request) {
     }
 
     const id = randomUUID();
+    const normalizedAudio = await normalizeAudioUpload(audio);
     const upload = await uploadAudio({
-      buffer: Buffer.from(await audio.arrayBuffer()),
-      contentType: audio.type || "audio/webm",
+      buffer: normalizedAudio.buffer,
+      contentType: normalizedAudio.contentType,
       id,
-      fileName: audio.name || `${id}.webm`
+      fileName: normalizedAudio.fileName || `${id}.mp3`,
+      childName
     });
     const now = new Date().toISOString();
 

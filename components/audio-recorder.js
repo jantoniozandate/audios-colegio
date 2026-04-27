@@ -7,8 +7,29 @@ function pickMimeType() {
     return "";
   }
 
-  const options = ["audio/webm;codecs=opus", "audio/mp4", "audio/webm"];
+  const options = [
+    "audio/mp4;codecs=mp4a.40.2",
+    "audio/mp4",
+    "audio/webm;codecs=opus",
+    "audio/webm"
+  ];
   return options.find((type) => MediaRecorder.isTypeSupported(type)) || "";
+}
+
+function extensionFromMimeType(mimeType) {
+  if (mimeType.includes("mp4")) {
+    return "m4a";
+  }
+
+  if (mimeType.includes("mpeg")) {
+    return "mp3";
+  }
+
+  if (mimeType.includes("ogg")) {
+    return "ogg";
+  }
+
+  return "webm";
 }
 
 export function AudioRecorder({ value, onChange, label = "Grabar audio" }) {
@@ -46,9 +67,11 @@ export function AudioRecorder({ value, onChange, label = "Grabar audio" }) {
     };
 
     recorder.onstop = () => {
-      const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" });
-      const file = new File([blob], `nota-${Date.now()}.webm`, {
-        type: blob.type || "audio/webm"
+      const finalMimeType = recorder.mimeType || "audio/webm";
+      const extension = extensionFromMimeType(finalMimeType);
+      const blob = new Blob(chunksRef.current, { type: finalMimeType });
+      const file = new File([blob], `nota-${Date.now()}.${extension}`, {
+        type: blob.type || finalMimeType
       });
       const localPreview = URL.createObjectURL(blob);
 
@@ -83,7 +106,7 @@ export function AudioRecorder({ value, onChange, label = "Grabar audio" }) {
       </button>
 
       {previewUrl ? (
-        <audio className="audio-preview" controls src={previewUrl}>
+        <audio className="audio-preview" controls preload="metadata" src={previewUrl}>
           Tu navegador no soporta audio.
         </audio>
       ) : (

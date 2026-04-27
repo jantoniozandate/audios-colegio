@@ -114,7 +114,8 @@ img {
 
 .nav-link,
 .secondary-pill,
-.primary-pill {
+.primary-pill,
+.danger-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -138,6 +139,12 @@ img {
   color: oklch(0.98 0.01 85);
   background: linear-gradient(135deg, oklch(0.43 0.08 278), oklch(0.57 0.08 329));
   box-shadow: 0 16px 30px color-mix(in oklab, var(--berry) 24%, transparent);
+}
+
+.danger-pill {
+  color: oklch(0.98 0.01 85);
+  background: linear-gradient(135deg, oklch(0.52 0.13 23), oklch(0.58 0.14 10));
+  box-shadow: 0 16px 30px color-mix(in oklab, oklch(0.45 0.12 18) 28%, transparent);
 }
 
 .nav-link:hover,
@@ -514,6 +521,33 @@ img {
   color: var(--ink-soft);
 }
 
+.list-toolbar,
+.bulk-actions,
+.note-summary,
+.note-summary-side,
+.note-title-wrap {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.list-toolbar,
+.note-summary,
+.note-summary-side {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-toolbar {
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.bulk-actions {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .notes-stack {
   display: grid;
   gap: var(--space-5);
@@ -521,6 +555,123 @@ img {
 
 .note-card {
   padding: var(--space-5);
+  display: grid;
+  gap: var(--space-5);
+  background:
+    linear-gradient(180deg, color-mix(in oklab, white 92%, var(--paper)), color-mix(in oklab, white 82%, var(--mint)));
+}
+
+.note-card.is-selected {
+  box-shadow:
+    var(--shadow),
+    0 0 0 2px color-mix(in oklab, var(--berry) 22%, white);
+}
+
+.note-summary {
+  gap: var(--space-4);
+}
+
+.note-title-wrap {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.note-title-wrap h3 {
+  margin: 0;
+}
+
+.note-toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  text-align: left;
+  background: transparent;
+  padding: 0;
+}
+
+.summary-pill {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: color-mix(in oklab, white 62%, var(--paper-strong));
+  color: var(--ink-soft);
+}
+
+.select-chip {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+}
+
+.select-chip input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.select-chip span {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 12px;
+  background: color-mix(in oklab, white 70%, var(--paper-strong));
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--line) 75%, white);
+  transition:
+    transform 220ms var(--ease-out-quart),
+    background-color 220ms var(--ease-out-quart);
+}
+
+.select-chip input:checked + span {
+  background:
+    radial-gradient(circle at 35% 35%, color-mix(in oklab, var(--gold) 65%, white), transparent 28%),
+    linear-gradient(135deg, oklch(0.48 0.08 278), oklch(0.62 0.09 340));
+}
+
+.select-chip input:checked + span::after {
+  content: "";
+  position: absolute;
+  inset: 11px 10px 10px 11px;
+  border-right: 2px solid oklch(0.98 0.01 85);
+  border-bottom: 2px solid oklch(0.98 0.01 85);
+  transform: rotate(40deg);
+}
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(45deg);
+  transition: transform 280ms var(--ease-out-quart);
+}
+
+.note-card.is-open .chevron {
+  transform: rotate(225deg);
+}
+
+.note-collapsible {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows 360ms var(--ease-out-quart),
+    opacity 220ms var(--ease-out-quart);
+  opacity: 0.32;
+}
+
+.note-collapsible.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.note-collapsible-inner {
+  min-height: 0;
+  overflow: hidden;
   display: grid;
   gap: var(--space-5);
 }
@@ -582,8 +733,155 @@ img {
   text-align: center;
 }
 
+.qr-box-fancy {
+  width: 170px;
+}
+
+.qr-frame {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 22% 22%, color-mix(in oklab, var(--gold) 55%, white), transparent 20%),
+    radial-gradient(circle at 80% 18%, color-mix(in oklab, var(--mint) 55%, white), transparent 22%),
+    linear-gradient(145deg, color-mix(in oklab, white 84%, var(--paper)), color-mix(in oklab, var(--peach) 24%, white));
+  box-shadow: var(--shadow);
+}
+
+.qr-frame img {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+}
+
+.is-disabled {
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+.print-shell {
+  min-height: 100vh;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top, color-mix(in oklab, var(--gold) 14%, transparent), transparent 28%),
+    linear-gradient(180deg, var(--paper), white);
+}
+
+.print-toolbar {
+  width: min(1200px, 100%);
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.print-toolbar h1 {
+  margin: 0;
+  font-family: var(--font-display), cursive;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+}
+
+.print-page {
+  width: 21cm;
+  min-height: 29.7cm;
+  margin: 0 auto;
+  padding: 0.25cm;
+  background: white;
+  box-shadow: 0 18px 60px color-mix(in oklab, var(--ink) 12%, transparent);
+}
+
+.print-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 4.85cm);
+  grid-auto-rows: 4.85cm;
+  gap: 0.2cm;
+  justify-content: center;
+}
+
+.print-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 0.18cm;
+  border-radius: 0.38cm;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 18%, color-mix(in oklab, var(--gold) 45%, white), transparent 20%),
+    radial-gradient(circle at 82% 22%, color-mix(in oklab, var(--mint) 50%, white), transparent 22%),
+    linear-gradient(160deg, color-mix(in oklab, white 92%, var(--paper)), color-mix(in oklab, var(--peach) 26%, white));
+}
+
+.print-card-top,
+.print-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1cm;
+  text-align: center;
+}
+
+.print-card-top p,
+.print-card-bottom span {
+  margin: 0;
+}
+
+.print-card-top p {
+  font-family: var(--font-display), cursive;
+  font-size: 0.42cm;
+  line-height: 1;
+}
+
+.print-card-bottom span {
+  font-size: 0.24cm;
+  color: var(--ink-soft);
+}
+
+.print-star {
+  width: 0.22cm;
+  height: 0.22cm;
+  border-radius: 999px;
+  background: var(--berry);
+}
+
+.print-qr-wrap {
+  margin: 0.08cm auto;
+  width: 3.35cm;
+  height: 3.35cm;
+  padding: 0.12cm;
+  border-radius: 0.32cm;
+  background: color-mix(in oklab, white 94%, var(--paper));
+}
+
+.print-qr-wrap img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .listener-card {
   text-align: left;
+}
+
+.listener-player {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.public-audio,
+.listener-controls audio,
+.audio-preview {
+  width: 100%;
+  max-width: 420px;
+}
+
+.public-audio {
+  min-height: 56px;
+  border-radius: 18px;
+  background: color-mix(in oklab, white 90%, var(--paper));
+  box-shadow: var(--shadow);
 }
 
 @keyframes pulse {
@@ -636,8 +934,10 @@ img {
 
   .floating-nav,
   .admin-topbar,
+  .list-toolbar,
   .note-meta,
-  .note-footer {
+  .note-footer,
+  .print-toolbar {
     flex-direction: column;
     align-items: stretch;
   }
@@ -661,6 +961,33 @@ img {
     left: 20px;
     right: auto;
     bottom: 20px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0.25cm;
+  }
+
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-shell {
+    padding: 0;
+    background: white;
+  }
+
+  .print-page {
+    width: auto;
+    min-height: auto;
+    box-shadow: none;
+    padding: 0;
   }
 }
 

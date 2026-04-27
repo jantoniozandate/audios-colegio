@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { AudioRecorder } from "@/components/audio-recorder";
 import { generateQrDataUrl } from "@/lib/qr";
 
-gsap.registerPlugin();
+gsap.registerPlugin(useGSAP);
 
 function emptyForm() {
   return {
@@ -133,6 +133,29 @@ export function AdminPanel({ initialNotes, appUrl }) {
     startTransition(refreshNotes);
   }
 
+  async function handleDelete(id) {
+    const accepted = window.confirm("Esto eliminará registro y audio en R2. ¿Continuar?");
+
+    if (!accepted) {
+      return;
+    }
+
+    const response = await fetch(`/api/notes/${id}`, {
+      method: "DELETE"
+    });
+    const payload = await response.json();
+
+    if (!response.ok) {
+      setStatus(payload.error || "No se pudo eliminar.");
+      return;
+    }
+
+    setStatus("Registro eliminado.");
+    setSelectedIds((current) => current.filter((item) => item !== id));
+    setExpandedId((current) => (current === id ? null : current));
+    startTransition(refreshNotes);
+  }
+
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
     window.location.href = "/login";
@@ -250,6 +273,7 @@ export function AdminPanel({ initialNotes, appUrl }) {
                 }}
                 selected={selectedIds.includes(note.id)}
                 onSelect={() => toggleSelection(note.id)}
+                onDelete={() => handleDelete(note.id)}
               />
             ))}
           </div>
@@ -267,7 +291,8 @@ function EditableNoteCard({
   expanded,
   onToggle,
   selected,
-  onSelect
+  onSelect,
+  onDelete
 }) {
   const [childName, setChildName] = useState(note.childName);
   const [audio, setAudio] = useState({
@@ -360,6 +385,9 @@ function EditableNoteCard({
             </button>
             <button type="button" className="secondary-pill" onClick={copyUrl}>
               {copied ? "URL copiada" : "Copiar URL"}
+            </button>
+            <button type="button" className="danger-pill" onClick={onDelete}>
+              Eliminar
             </button>
           </div>
 
